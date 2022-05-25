@@ -1,5 +1,7 @@
 [← Return to AZ-204](https://github.com/joerivanarkel/joerivanarkel/blob/main/AZ204.md)<br> 
+<br>
 [![.NET](https://github.com/joerivanarkel/AzureCosmosDB/actions/workflows/dotnet.yml/badge.svg)](https://github.com/joerivanarkel/AzureCosmosDB/actions/workflows/dotnet.yml) <br>
+<br>
 **Contents:** <br>
 [1. Working with Cosmos DB](https://github.com/joerivanarkel/AzureCosmosDB/edit/master/README.md#working-with-cosmos-db)<br>
 [2. Creating a Database](https://github.com/joerivanarkel/AzureCosmosDB/edit/master/README.md#creating-a-database)<br>
