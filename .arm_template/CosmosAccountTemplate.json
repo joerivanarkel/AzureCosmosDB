@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "cosmosAccountName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+    {
+        "name": "[parameters('cosmosAccountName')]",
+        "type": "Microsoft.DocumentDB/databaseAccounts",
+        "apiVersion": "2021-05-15",
+        "location": "[resourceGroup().location]",
+        "tags": {},
+        "kind": "GlobalDocumentDB",
+        "properties": {
+            "consistencyPolicy": {
+                "defaultConsistencyLevel": "Eventual",
+                "maxStalenessPrefix": 1,
+                "maxIntervalInSeconds": 5
+            },
+            "locations": [
+                {
+                    "locationName": "West Europe",
+                    "failoverPriority": 0
+                }
+            ],
+            "databaseAccountOfferType": "Standard",
+            "enableAutomaticFailover": true
+        }
+    }
+    ],
+    "outputs": {}
+}

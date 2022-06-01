@@ -42,23 +42,23 @@ public class CosmosDbRepository
         try
         {
             ItemResponse<Entity> entityResponse = await _container.ReadItemAsync<Entity>(entity.id, new PartitionKey(entity.id));
-            Console.WriteLine("Item in database with id: {0} already exists\n", entityResponse.Resource.id);
+            Console.WriteLine($"Item in database with id: {entityResponse.Resource.id} already exists");
             return true;
         }
         catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             ItemResponse<Entity> entityResponse = await _container.CreateItemAsync<Entity>(entity, new PartitionKey(entity.id));
-            Console.WriteLine("Created item in database with id: {0} Operation consumed {1} RUs.\n", entityResponse.Resource.id, entityResponse.RequestCharge);
+            Console.WriteLine($"Created item in database with id: {entityResponse.Resource.id}");
             return true;
         }
         catch
         {
-            Console.WriteLine("Failed to create item in database.\n");
+            Console.WriteLine("Failed to create item in database.");
             return false;
         }
     }
 
-    public async Task<Entity> QueryItem(string id)
+    public async Task<FeedResponse<Entity>> QueryItem(string id)
     {
         var queryable = _container.GetItemLinqQueryable<Entity>();
         var iterator = queryable.Where(p => p.id == id.ToString()).ToFeedIterator();
@@ -71,8 +71,8 @@ public class CosmosDbRepository
                 {
                     Console.WriteLine($"Read item {entity.id} from database");
                     Console.WriteLine($"    Body: {entity.Body}");
-                    return entity;
                 }
+                return response;
             }
             else
             {
