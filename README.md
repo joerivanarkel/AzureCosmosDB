@@ -10,7 +10,7 @@
 [5. Querying a Item from the Container](https://github.com/joerivanarkel/AzureCosmosDB/edit/master/README.md#querying-a-item-from-the-container)<br>
 
 # Azure Cosmos DB
-Azure Cosmos DB is a no SQL database. As shwon in the underlying diagram, the top level is a Cosmos DB Account. Form here you can manage the Functions triggers, Connections and Settings. A Cosmos DB Account contains Databases, which is an organization of containers. In a Container you find the Procedures, User Defined Functions and Triggers. Most importantly a Container contains Items. A item ia a entity in the Contianer, which contains the identifiers, partition key and body of information.
+Azure Cosmos DB is a no SQL database. As shown in the underlying diagram, the top level is a Cosmos DB Account. Form here you can manage the Functions triggers, Connections and Settings. A Cosmos DB Account contains Databases, which is an organization of containers. In a Container you find the Procedures, User Defined Functions and Triggers. Most importantly a Container contains Items. A item is a entity in the Container, which contains the identifiers, partition key and body of information.
 
 ```mermaid
 graph LR
@@ -21,7 +21,7 @@ graph LR
 
 ## Working with Cosmos DB
 
-Working with Cosmos DB is done through the CosmosClient from the `Microsoft.Azure.Cosmos` package. Using this i call the `GetDatabase()` and the `GetContainer()` methods to fill these variables. In the constructor i call for the strings: DatabaseId, the name of the Database, ContainerId, the name of the container, and the Connectiobstring, to connect to the Cosmos DB Account.
+Working with Cosmos DB is done through the CosmosClient from the `Microsoft.Azure.Cosmos` NuGet package. Using this i call the `GetDatabase()` and the `GetContainer()` methods to fill these variables. In the constructor i call for the strings: DatabaseId, the name of the Database, ContainerId, the name of the container, and the Connectionstring, to connect to the Cosmos DB Account.
 
 ```csharp
 private CosmosClient _cosmosClient;
@@ -38,7 +38,7 @@ public CosmosDbRepository(string databaseId, string containerId, string connecti
 
 ## Creating a Database
 
-Firstly i try to get the databse from Azure, with the name of the database. If that returns null, i use the `CreateDatabaseIfNoxExistsAsync()` method to try to create the specified database through the CosmosClient.
+Firstly i try to get the database from Azure, with the name of the database. If that returns null, i use the `CreateDatabaseIfNoxExistsAsync()` method to try to create the specified database through the CosmosClient.
 
 ```csharp
 Database database = cosmosClient.GetDatabase(databaseId);
@@ -50,7 +50,7 @@ if (database.Equals(null))
 
 ## Creating a Container
 
-Similar to the Database, I try to fecth the container from Azure. When that returns null I try to create the container, but with this method I have to specify the partitionkeypath for the `CreateDatabaseIfNoxExistsAsync()` method. These methods aren't used with the CosmosClient, but the databse we previously created.
+Similar to the Database, I try to fetch the container from Azure. When that returns null I try to create the container, but with this method I have to specify the partitionkeypath for the `CreateDatabaseIfNoxExistsAsync()` method. These methods aren't used with the CosmosClient, but the database we previously created.
 
 ```csharp
 Container container = database.GetContainer(containerId);
@@ -86,7 +86,7 @@ catch
 
 ## Querying a Item from the Container
 
-I query an item from the container using LINQ with cosmos from the `Microsoft.Azure.Cosmos.Linq` package. To use a LINQ query I first must get a Queryable, using the `GetItemLinqQueryable<T>()` method. Then I specify the linq query ans send the result to the Iterator. From here I fristly check if the Iterator has results and if the count isn't zero. Then I log the response adn return.
+I query an item from the container using LINQ with cosmos from the `Microsoft.Azure.Cosmos.Linq` package. To use a LINQ query I first must get a Queryable, using the `GetItemLinqQueryable<T>()` method. Then I specify the linq query ans send the result to the Iterator. From here I firstly check if the Iterator has results and if the count isn't zero. Then I log the response adn return.
 
 ```csharp
 var queryable = _container.GetItemLinqQueryable<Entity>();
