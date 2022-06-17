@@ -86,7 +86,7 @@ catch
 
 ## Querying a Item from the Container
 
-I query an item from the container using LINQ with cosmos from the `Microsoft.Azure.Cosmos.Linq` package. To use a LINQ query I first must get a Queryable, using the `GetItemLinqQueryable<T>()` method. Then I specify the linq query ans send the result to the Iterator. From here I firstly check if the Iterator has results and if the count isn't zero. Then I log the response adn return.
+I query an item from the container using LINQ with cosmos from the `Microsoft.Azure.Cosmos.Linq` package. To use a LINQ query I first must get a Queryable, using the `GetItemLinqQueryable<T>()` method. Then I specify the LINQ query ans send the result to the Iterator. From here I firstly check if the Iterator has results and if the count isn't zero. Then I log the response and return.
 
 ```csharp
 var queryable = _container.GetItemLinqQueryable<Entity>();
